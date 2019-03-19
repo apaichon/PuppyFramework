@@ -6,7 +6,9 @@ namespace Puppy.Model.Business
         Add,
         Edit,
         Get,
-        Delete
+        Delete,
+        Aggregate,
+        RunCommand
     }
 
 }

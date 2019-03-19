@@ -3,6 +3,7 @@ using Puppy.Model.Data;
 using Puppy.Model.Message;
 using Puppy.Model.Business;
 using Puppy.Model.Output;
+using Puppy.Model;
 
 namespace Puppy.BLL
 {

@@ -16,7 +16,7 @@ namespace Puppy.Model.Data
 
         public static eDataProvider GetDataProvider(string envName)
         {
-            string envVal = Environment.GetEnvironmentVariable(envName);
+            string envVal = Environment.GetEnvironmentVariable(envName, EnvironmentVariableTarget.Machine);
             switch (envVal.ToLower())
             { 
                 default:
@@ -28,7 +28,7 @@ namespace Puppy.Model.Data
 
         public static string GetConnectionString(string key, Dictionary<string,string> consList)
         {
-            return Environment.GetEnvironmentVariable(consList[key]);
+            return Environment.GetEnvironmentVariable(consList[key], EnvironmentVariableTarget.Machine);
         }
     }
 }

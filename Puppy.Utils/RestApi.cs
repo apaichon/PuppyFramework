@@ -35,6 +35,7 @@ namespace Puppy.Utils
             return response;
         }
 
+
         public async Task<HttpResponseMessage> EditAsync(string data)
         {
             HttpResponseMessage response = await client.PutAsync(_hostUrl, new StringContent(data, Encoding.UTF8, JSON_CONTENT));

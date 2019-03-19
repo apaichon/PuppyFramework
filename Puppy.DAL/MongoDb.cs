@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Driver;
 using MongoDB.Bson;
+using Puppy.Model;
+using Puppy.Model.Data;
 
 namespace Puppy.DAL
 {
@@ -14,6 +16,8 @@ namespace Puppy.DAL
         IMongoCollection<BsonDocument> _collection;
         // Track whether Dispose has been called.
         private bool disposed = false;
+
+        private IClientSessionHandle _session;
 
         [System.ComponentModel.DefaultValue(false)]
         public bool IsOpened
@@ -54,6 +58,11 @@ namespace Puppy.DAL
         public string Data
         {
             get;set;
+        }
+
+        public IClientSessionHandle Session
+        {
+            get { return _session;}
         }
 
         #endregion
@@ -108,6 +117,13 @@ namespace Puppy.DAL
             return this;
         }
 
+        public IDataAdapter Count(string filter, out string result)
+        {
+            var bsonFilter =  BsonDocument.Parse(filter); 
+            result = _collection.CountDocuments(filter, null).ToString();
+            return this;
+        }
+
         public IDataAdapter Add(object data, out bool isInserted)
         {
             var bson = ConvertObjectToBson(data);
@@ -158,11 +174,82 @@ namespace Puppy.DAL
             return this;
         }
 
-        private BsonDocument ConvertObjectToBson(object data)
+        public IDataAdapter RunCommand(string command, out string result)
+        {
+            var jsonCommand = new JsonCommand<BsonDocument>(command);
+            result = _db.RunCommand(jsonCommand).ToJson();
+            return this;
+        }
+
+        public IDataAdapter Aggregate(object pipeline, out string result)
+        {
+           AggregatePipelineModel model = (AggregatePipelineModel)pipeline; 
+           BsonDocument Match = BsonDocument.Parse(model.Match);
+           BsonDocument Sort = BsonDocument.Parse(model.Sort);
+           BsonDocument Group = BsonDocument.Parse(model.Group);
+           BsonDocument Project = BsonDocument.Parse(model.Project);
+    
+            if (model.Lookup == null)
+            {
+                 result = _collection.Aggregate()
+                            .Match(Match)
+                            .Group(Group)
+                            .Project(Project)
+                            .Sort(Sort)
+                            .ToList().ToJson();
+            }
+            else {
+                result = _collection.Aggregate()
+                            .Match(Match)
+                            .Group(Group)
+                            .Project(Project)
+                            .Lookup(model.Lookup.ForeignCollectionName,
+                                model.Lookup.LocalFieldName,
+                                model.Lookup.ForeignFieldName,
+                                model.Lookup.ResultAs)
+                            .Sort(Sort)
+                            .ToList().ToJson();
+            }
+
+           return this;
+        }
+
+
+
+        private static BsonDocument ConvertObjectToBson(object data)
         {
             var bson = data.ToBsonDocument();
             bson.Remove("_t");
             return bson;
+        }
+
+        public IDataAdapter StartTransaction()
+        {
+            _session = _client.StartSession();
+            return this;
+        }
+
+         public IClientSessionHandle CreateTransaction()
+        {
+            return _client.StartSession();
+        }
+
+        public IDataAdapter CommitTransaction()
+        {
+            _session.CommitTransaction();
+            return this;
+        }
+
+        public IDataAdapter StopTransaction()
+        {
+            if (_session != null) 
+            {
+                if (_session.IsInTransaction)
+                {
+                    _session.AbortTransaction();
+                }
+            }
+            return this;
         }
 
         public void Dispose()

@@ -8,9 +8,9 @@ using Puppy.Model.Output;
 
 namespace Puppy.BLL
 {
-    public class GetOperator:IBusinessOperator
+    public class AggregateOperator:IBusinessOperator
     {
-        public BusinessOperator Operator => BusinessOperator.Get;
+        public BusinessOperator Operator => BusinessOperator.Aggregate;
         public Result Execute(DataConfiguration config, object param, IMessage message)
         {
             Result result;
@@ -18,7 +18,7 @@ namespace Puppy.BLL
             {
                 string data = "";
                 da.Open()
-                  .Get(param.ToString(), out data)
+                  .Aggregate(param, out data)
                   .Close();
                 if(!String.IsNullOrEmpty(data))
                 {

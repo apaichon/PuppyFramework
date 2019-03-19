@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Puppy.ConsoleApp.csproj"
+                "${workspaceFolder}/Puppy.ConsoleApp/Puppy.ConsoleApp.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

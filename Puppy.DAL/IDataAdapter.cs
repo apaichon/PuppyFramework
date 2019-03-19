@@ -1,5 +1,8 @@
+
 using System;
 using System.Collections.Generic;
+using Puppy.Model;
+using MongoDB.Driver;
 
 namespace Puppy.DAL
 {
@@ -36,6 +39,13 @@ namespace Puppy.DAL
              get;
              set;
          }
+
+         IClientSessionHandle Session
+         {
+             get;
+         }
+
+        
         
         #endregion
 
@@ -46,20 +56,27 @@ namespace Puppy.DAL
         IDataAdapter Get();
         IDataAdapter Get(out string json);
         IDataAdapter Get(string filter, out string result);
+
+        IDataAdapter Count(string filter, out string result);
         IDataAdapter Add(object data, out bool isInserted);
         IDataAdapter Edit(string filter, object data, out bool isUpdated);
         IDataAdapter EditOne(Dictionary<string,object> filter, object data, out bool isUpdated);
         IDataAdapter EditMany(string filter, string data, out long totalModified);
         IDataAdapter DeleteMany(string filter,out long totalDeleted);
-        /*
-        IDAL Get(DataFilter filter);
-        IDAL Add();
-        IDAL Add(DataFilter filter);
-        IDAL Edit();
-        IDAL Edit(DataFilter filter);
-        IDAL Delete();
-        IDAL Delete(DataFilter filter);
-        */
+
+        IDataAdapter RunCommand(string command, out string result);
+
+        IDataAdapter Aggregate(object pipeline, out string result);
+
+
+        IClientSessionHandle CreateTransaction();
+        IDataAdapter StartTransaction();
+
+        IDataAdapter StopTransaction();
+
+        IDataAdapter CommitTransaction();
+
+
         #endregion
     }
 }

@@ -11,6 +11,7 @@ namespace Puppy.DAL
                                           string tableName
                                         )
         {
+            
             switch (dataProvider)
             {
                 default:

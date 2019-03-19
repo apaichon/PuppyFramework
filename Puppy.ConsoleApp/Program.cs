@@ -1,5 +1,5 @@
 ﻿using System;
-//using Puppy.DAL;
+using Puppy.DAL;
 using Puppy.BLL;
 using MyConcert.BLL;
 using System.Collections.Generic;
@@ -104,11 +104,55 @@ namespace Puppy.ConsoleApp
       };
              Console.WriteLine(ConnectionStringList[Environment.GetEnvironmentVariable("ENV_MODE")]);
              */
-            IMessage message = BusinessMessage.CreateMessage(BusinessLocale.th_TH);
-            ConcertBLL concert = new ConcertBLL();
-            Result result = concert.Add(aBook, message);
+             /* Puppy.Model.Message.IMessage message = BusinessMessage.CreateMessage(Puppy.Model.Business.BusinessLocale.th_TH);
+             ConcertBLL concert = new ConcertBLL();
+             Puppy.Model.Output.Result result = concert.Add(aBook, message);
+            
+             
 
-             Console.WriteLine(result.Message);
+             Console.WriteLine(result.Message);*/
+
+            Puppy.Model.Data.AggregatePipelineModel model = new Model.Data.AggregatePipelineModel ();
+            model.Match = "{'concertId': 'impact2019002','bookingStatus._id': 'bs01'}";
+            model.Group = "{ _id:  {zoneId:'$zone._id', zone: '$zone.zone', price: '$zone.price'}, totalAvailable:{ $sum: 1 } }";
+            model.Project = @"{
+                    '_id': 0,
+                     'zoneId': '$_id.zoneId',
+                    'zone': '$_id.zone',
+                    'price': '$_id.price',
+                    'totalAvailable': '$totalAvailable'
+                    }";
+            model.Sort ="{price:-1}";
+            model.Lookup = new Model.Data.LookupModel {
+                ForeignCollectionName ="concertTicketZones",
+                LocalFieldName = "zoneId",
+                ForeignFieldName = "_id",
+                ResultAs ="totalTickets"
+            };
+
+              
+
+             /*MongoDb db = new MongoDb (
+                "mongodb://localhost:27017",
+                "myconcert",
+                "concertSeats"
+            );
+            string result ="";
+            db.Open()
+            .Aggregate(model,out result)
+            .Close();
+
+            Console.WriteLine(result);*/
+
+            Puppy.Model.Message.IMessage message = BusinessMessage.CreateMessage(Puppy.Model.Business.BusinessLocale.th_TH);
+             ConcertSeatsBLL concert = new ConcertSeatsBLL();
+             Puppy.Model.Output.Result result = concert.GetAvailableSeats("impact2019002", message);
+            
+             
+
+             Console.WriteLine(result.Data);
+
+             
             /*cfg.DataProvider = eDataProvider.MongoDb;
             cfg.ConnectionString = "mongodb://localhost:27017";
             cfg.DatabaseName = "erp";
@@ -120,8 +164,9 @@ namespace Puppy.ConsoleApp
                 message
             );*/
 
-           // Console.WriteLine(result.Message);
-            result = concert.Get("{title:'Dotnet Core Book'}", message);
+            //Console.WriteLine(result.Message);
+            //result = concert.Get("{title:'Dotnet Core Book'}", message);
+            
             /*result = biz.Execute(
                 cfg,
                 BusinessOperator.Get,
@@ -131,10 +176,32 @@ namespace Puppy.ConsoleApp
 
 
 
-            Console.WriteLine(result.Data);
+           // Console.WriteLine(result.Data);
 
           //IEnumerable<string> m_oEnum = new string[]{};
 
+/* MongoDb db = new MongoDb (
+                "mongodb://localhost:27017",
+                "myconcert",
+                "concertSeats"
+            );
+             string sresult ="";
+            db.Open()
+            .Count(@"{_id: {'$in':
+            ['impact2019002-TM5-0', 
+            'impact2019002-TM5-1']},
+             'bookStatus._id':{'$ne':'bs01'}}
+            ", out sresult)           
+            .Close();
+
+            Console.WriteLine(sresult);*/
+            int totalSeats = 2;
+            string seatIds =  "['impact2019002-TM5-21', 'impact2019002-TM5-22']";
+           // string jsonBooked ="{'$addToSet':{'booked': {'_id':1,'bookedDate':'2019-18-03', 'bookedBy':'apaichon@hotmail.com'}}}";
+            string jsonBooked ="{'$set':{'bookingStatus': {'_id':'bs02','name':'Sold Out', 'isActive': true,'bookedDate':'2019-18-03 16:26:00', 'bookedBy':'apaichon@hotmail.com'}}}";
+           result = concert.BookingSeat(totalSeats, seatIds, jsonBooked,message);
+            Console.WriteLine(result.Message);
+            // result = concert.GetAvailableSeats("impact2019002", message);
         }
     }
 }
