@@ -5,6 +5,8 @@
     <ProjectReference Include="..\Puppy.BLL\Puppy.BLL.csproj" />
     <ProjectReference Include="..\Puppy.Model\Puppy.Model.csproj" />
     <ProjectReference Include="..\..\MyConcert\MyConcert.BLL\MyConcert.BLL.csproj" />
+    <ProjectReference Include="..\Puppy.Facade\Puppy.Facade.csproj" />
+    <ProjectReference Include="..\Puppy.Utils\Puppy.Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>

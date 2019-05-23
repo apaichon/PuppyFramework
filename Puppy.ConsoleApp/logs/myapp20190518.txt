@@ -1,0 +1,15 @@
+2019-05-18 12:21:18.868 +07:00 [INF] Start to Execute
+2019-05-18 12:24:46.584 +07:00 [INF] Start to Execute
+2019-05-18 12:24:47.119 +07:00 [INF] เพิ่มข้อมูล {0} สำเร็จ
+2019-05-18 18:30:16.731 +07:00 [INF] Start to Execute
+2019-05-18 18:30:19.502 +07:00 [INF] เพิ่มข้อมูล {0} สำเร็จ
+2019-05-18 18:34:14.942 +07:00 [INF] Start to Execute
+2019-05-18 18:34:15.669 +07:00 [INF] เพิ่มข้อมูล {0} สำเร็จ
+2019-05-18 21:53:52.740 +07:00 [INF] {"LogId":"5f88c196-49ba-4b2f-af72-3bb48e844716","ClassName":"MyConcert.BLL.ConcertBLL","MethodName":"Add","ExecuteParameter":{"isbn":"434-5933-343","title":"Java Script999","price":999.0},"UserAgent":{"Browser":"Mobile Safari","BrowserVersion":"5.1","OS":"iOS","OSVersion":"5.1","Device":"iPhone","DeviceBrand":"Apple","DeviceModel":"iPhone"}}
+2019-05-18 21:58:37.087 +07:00 [INF] {"LogId":"38507215-118a-4f7f-ad9c-9ccecfa0d8e4","ClassName":"MyConcert.BLL.ConcertBLL","MethodName":"Add","ExecuteParameter":{"isbn":"434-5933-343","title":"Java Script999","price":999.0},"UserAgent":{"Browser":"Mobile Safari","BrowserVersion":"5.1","OS":"iOS","OSVersion":"5.1","Device":"iPhone","DeviceBrand":"Apple","DeviceModel":"iPhone"}}
+2019-05-18 22:00:01.647 +07:00 [INF] {"LogId":"fdef6bf2-92c1-4da2-b586-83d5e001162c","ClassName":"MyConcert.BLL.ConcertBLL","MethodName":"Add","ExecuteParameter":{"isbn":"434-5933-343","title":"Java Script999","price":999.0},"UserAgent":{"Browser":"Mobile Safari","BrowserVersion":"5.1","OS":"iOS","OSVersion":"5.1","Device":"iPhone","DeviceBrand":"Apple","DeviceModel":"iPhone"}}
+2019-05-18 22:05:03.602 +07:00 [INF] {"LogId":"c80020f3-03c3-482c-859f-a334b3e22767","ClassName":"MyConcert.BLL.ConcertBLL","MethodName":"Add","ExecuteParameter":{"isbn":"434-5933-343","title":"Java Script999","price":999.0},"UserAgent":{"Browser":"Mobile Safari","BrowserVersion":"5.1","OS":"iOS","OSVersion":"5.1","Device":"iPhone","DeviceBrand":"Apple","DeviceModel":"iPhone"}}
+2019-05-18 22:05:05.186 +07:00 [INF] {"LogId":"c80020f3-03c3-482c-859f-a334b3e22767","Output":{"Status":0,"StatusCode":210,"Message":"เพิ่มข้อมูล {0} สำเร็จ","Data":"Puppy.ConsoleApp.Program+Book"},"Duration":-1560.9402}
+2019-05-18 22:11:00.231 +07:00 [INF] {"LogId":"180ec1a8-cfc4-4c02-a7da-173eede84068","LogType":0,"ClassName":"MyConcert.BLL.ConcertBLL","MethodName":"Add","ExecuteParameter":{"isbn":"434-5933-343","title":"Java Script999","price":999.0},"UserAgent":{"Browser":"Mobile Safari","BrowserVersion":"5.1","OS":"iOS","OSVersion":"5.1","Device":"iPhone","DeviceBrand":"Apple","DeviceModel":"iPhone"}}
+2019-05-18 22:11:02.153 +07:00 [INF] {"LogId":"180ec1a8-cfc4-4c02-a7da-173eede84068","LogType":1,"Output":{"Status":0,"StatusCode":210,"Message":"เพิ่มข้อมูล {0} สำเร็จ","Data":"Puppy.ConsoleApp.Program+Book"},"Duration":1891.9128}
+2019-05-18 22:14:23.692 +07:00 [INF] {"LogId":"c6e7eb1b-4278-42f0-9c31-0550cbc7009a","LogType":1,"Output":{"Status":0,"StatusCode":210,"Message":"เพิ่มข้อมูล {0} สำเร็จ","Data":"Puppy.ConsoleApp.Program+Book"},"Duration":1626.6687000000002}

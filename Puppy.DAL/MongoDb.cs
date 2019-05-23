@@ -113,14 +113,14 @@ namespace Puppy.DAL
         public IDataAdapter Get(string filter, out string result)
         {
             var bsonFilter =  BsonDocument.Parse(filter); 
-            result = _collection.Find(filter).ToList().ToJson();
+            result = _collection.Find(bsonFilter).ToList().ToJson();
             return this;
         }
 
         public IDataAdapter Count(string filter, out string result)
         {
             var bsonFilter =  BsonDocument.Parse(filter); 
-            result = _collection.CountDocuments(filter, null).ToString();
+            result = _collection.CountDocuments(bsonFilter, null).ToString();
             return this;
         }
 

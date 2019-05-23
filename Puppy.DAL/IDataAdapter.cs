@@ -1,7 +1,5 @@
-
 using System;
 using System.Collections.Generic;
-using Puppy.Model;
 using MongoDB.Driver;
 
 namespace Puppy.DAL
@@ -46,7 +44,6 @@ namespace Puppy.DAL
          }
 
         
-        
         #endregion
 
         #region Methods
@@ -68,12 +65,10 @@ namespace Puppy.DAL
 
         IDataAdapter Aggregate(object pipeline, out string result);
 
-
         IClientSessionHandle CreateTransaction();
         IDataAdapter StartTransaction();
 
         IDataAdapter StopTransaction();
-
         IDataAdapter CommitTransaction();
 
 
